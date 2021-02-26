@@ -20,8 +20,8 @@
         </div>
         <div>
         <label for="country">Country: </label>
-        <select id="country" th:each="country: ${countryList}" name="country">
-            <option th:text="country.name"></option>
+        <select th:field="*{country}" id="country" name="country">
+            <option th:each="country: ${countryList}"  th:text="${country.name}" th:value="${country.name}"></option>
         </select>
         </div>
         <div>
