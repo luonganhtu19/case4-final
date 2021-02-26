@@ -1,4 +1,5 @@
 package com.practicetest.travel.model;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import lombok.*;
@@ -19,7 +20,7 @@ public class City {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @Min(value = 500, message = "max 500")
+    @Max(value = 500, message = "max 500")
     private Double  area;
     @Min(value = 100, message = "min 100")
     private Long populationData;

@@ -9,6 +9,7 @@
         Back to customer list
     </a>
 </p>
+<h4 th:if="${message}" th:text="${message}"></h4>
 <div id="form">
     <form  th:action="@{/city/create}" th:object="${city}"
           method="POST" novalidate="novalidate">
@@ -16,13 +17,13 @@
         <div>
             <label for="nameCity">City: </label>
             <br>
-            <input id="nameCity" type="text" th:field="*{nameCity}" name="nameCity"/>
+            <input id="nameCity" type="text" th:field="*{nameCity}" name="nameCity"  />
             <td th:if="${#fields.hasErrors('nameCity')}" th:errors="*{nameCity}">Name Error</td>
         </div>
         <div>
         <label for="country">Country: </label>
         <select th:field="*{country}" id="country" name="country">
-            <option th:each="country: ${countryList}"  th:text="${country.name}" th:value="${country.name}"></option>
+            <option th:each="country: ${countryList}"  th:utext="${country.name}" th:value="${country.id}"></option>
         </select>
         </div>
         <div>

@@ -23,12 +23,12 @@
     </thead>
     <tbody>
     <tr th:each="row,rowStat : ${cityList}">
-        <td th:text="${rowStat.index}"></td>
+        <td th:text="${rowStat.index+1}"></td>
         <td th:text="${row.nameCity}"></td>
-        <td th:text="${row.country}"></td>
-        <td><a th:href="@{/customer/{id}/edit(id=${row.getId()})}">edit</a></td>
-        <td><a th:href="@{/customer/{id}/delete(id=${row.getId()})}">delete</a></td>
-        <td><a th:href="@{/customer/{id}/view(id=${row.getId()})}">view</a></td>
+        <td th:text="${row.country.name}"></td>
+        <td><a th:href="@{/city/edit/__${row.id}__}">edit</a></td>
+        <td><a th:href="@{/city/delete/__${row.id}__}">delete</a></td>
+        <td><a th:href="@{/city/view/__${row.id}__}">view</a></td>
     </tr>
     </tbody>
 </table>

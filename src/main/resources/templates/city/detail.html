@@ -10,37 +10,35 @@
     </a>
 </p>
 <div id="form">
-    <form action="#" th:action="@{/city/save}" th:object="${city}"
-          method="POST" novalidate="novalidate">
-        <input type="hidden" th:field="*{id}"/>
-        <div>
-            <label>Name Of City</label>
-            <input type="text" th:text="${city.nameCity}" name="nameCity" disabled/>
-        </div>
-        <div>
-            <label>Country</label>
-            <input type="number" th:text="${city.country}" name="area" disabled >
-        </div>
-
-        <div>
-            <label>Area</label>
-            <input type="number" th:text="${city.area}" name="area" disabled >
-        </div>
-        <div>
-            <label>Population Data</label>
-            <input type="number" th:text="${city.populationData}" name="populationData" disabled/>
-        </div>
-        <div>
-            <label>GDP City</label>
-            <input type="number" th:text="${city.gdpCity}" name="gdpCity" disabled/>
-        </div>
-
-        <div>
-            <label>description</label>
-            <input type="number" th:text="${city.description}" name="gdpCity" disabled/>
-        </div>
-        <input type="submit" value="Save"></input>
-    </form>
+    <fieldset>
+        <legend th:text="${city.nameCity}"></legend>
+        <table>
+            <tr>
+                <td>NameCity</td>
+                <td th:text="${city.nameCity}"></td>
+            </tr>
+            <tr>
+                <td>Country</td>
+                <td th:text="${city.country.name}"></td>
+            </tr>
+            <tr>
+                <td>Area</td>
+                <td th:text="${city.area}"></td>
+            </tr>
+            <tr>
+                <td>PopulationData</td>
+                <td th:text="${city.populationData}"></td>
+            </tr>
+            <tr>
+                <td>GPD</td>
+                <td th:text="${city.gdpCity}"></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td th:text="${city.description}"></td>
+            </tr>
+        </table>
+    </fieldset>
 </div>
 <footer th:replace="/layout :: footer"></footer>
 </body>

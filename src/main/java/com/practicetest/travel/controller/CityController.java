@@ -8,6 +8,8 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,33 +40,50 @@ public class CityController {
     }
 
     @PostMapping("city/create")
-    public ModelAndView createCity(@ModelAttribute City city){
-        cityService.save(city);
-        ModelAndView modelAndView = new ModelAndView("city/create","message","Tạo Thành Phố Thành Công");
-        modelAndView.addObject("city",new City());
+    public ModelAndView createCity(@Validated @ModelAttribute City city, BindingResult bindingResult){
+        ModelAndView modelAndView=new ModelAndView("city/create");
+        if (!bindingResult.hasFieldErrors()) {
+            cityService.save(city);
+            modelAndView.addObject("city", new City());
+            modelAndView.addObject("message", "Success!");
+        }
         return modelAndView;
     }
 
-    @GetMapping("/view")
-    private ModelAndView cityView(@RequestParam("id") Long id){
-        Optional<City> cityOptional = cityService.findById(id);
-        ModelAndView model = new ModelAndView("viewcity","city",cityOptional.get());
-        return model;
-    }
 
-    @GetMapping("/edit")
-    private ModelAndView cityEditForm(@RequestParam("id") Long id){
+
+    @GetMapping("city/edit/{id}")
+    private ModelAndView cityEditForm(@PathVariable("id") Long id){
         List<Country> countryList = (List<Country>) countryService.findAll();
         Optional<City> cityOptional = cityService.findById(id);
-        ModelAndView model = new ModelAndView("edit","city",cityOptional.get());
+        ModelAndView model = new ModelAndView("city/update","city",cityOptional.get());
         model.addObject("countryList",countryList);
         return model;
     }
 
-    @PostMapping("/edit")
+    @PostMapping("city/edit/{id}")
     public ModelAndView editCity(@ModelAttribute City city){
         cityService.save(city);
-        ModelAndView modelAndView = new ModelAndView("city","message","Tạo Thành Phố Thành Công");
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
         return modelAndView;
+    }
+    @GetMapping("city/view/{id}")
+    public ModelAndView showListCity(@PathVariable Long id){
+        Optional<City> city=cityService.findById(id);
+        ModelAndView modelAndView= new ModelAndView("city/detail");
+        modelAndView.addObject("city",city.get());
+        return modelAndView;
+    }
+    @GetMapping("/city/delete/{id}")
+    private ModelAndView cityDeleteForm(@PathVariable("id") Long id){
+        Optional<City> cityOptional = cityService.findById(id);
+        ModelAndView model = new ModelAndView("city/delete","city",cityOptional.get());
+        return model;
+    }
+
+    @PostMapping("/city/delete/{id}")
+    private String cityDelete(@PathVariable("id") Long id){
+        cityService.delete(id);
+        return "redirect:/";
     }
 }

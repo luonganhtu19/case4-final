@@ -11,8 +11,9 @@
 </p>
 <div id="form">
 
-    <form action="#" th:action="@{/city/delete}" th:object="${city}">
-        <input type="text" th:text="Delete ${city.nameCity}">
+    <form method="post">
+        <p>Are you sure?</p>
+        <h4 th:text="${city.nameCity}"></h4>
         <input type="submit" name="Yes">
     </form>
 </div>
